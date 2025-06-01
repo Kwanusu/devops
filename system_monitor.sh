@@ -1,9 +1,13 @@
 #!/bin/bash
 
-LOG_DIR="/var/log"
+# Log directory and files (non-root path)
+LOG_DIR="$HOME/logs"
 METRICS_LOG="$LOG_DIR/system_metrics.log"
 ALERT_LOG="$LOG_DIR/alerts.log"
-CONF_FILE="/home/user/monitor/monitor.conf"
+CONF_FILE="$HOME/monitor/monitor.conf"
+
+# Create log directory if it doesn't exist
+mkdir -p "$LOG_DIR"
 
 # Ensure only the script owner can execute and edit
 chmod 700 "$0"
@@ -36,4 +40,5 @@ fi
 if [ ! -r "$CONF_FILE" ]; then
   echo "$timestamp ALERT: Unauthorized attempt to access $CONF_FILE" >> "$ALERT_LOG"
 fi
+
 
